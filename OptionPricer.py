@@ -1,3 +1,5 @@
+from MonteCarloSimulator import MonteCarloSimulator
+
 class OptionPricer:
     def __init__(self, simulator):
         """
