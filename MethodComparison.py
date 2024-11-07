@@ -1,3 +1,7 @@
+import MonteCarloSimulator
+import OptionPricer
+import numpy as np
+
 class MethodComparison:
     def __init__(self, heston_model, T, K, true_price):
         """
