@@ -16,14 +16,13 @@ class EulerScheme(HestonModel):
         param dt: time step
         return: updated asset price and volatility
         """
-        # 生成两个相关的正态随机变量
+
         Z1 = np.random.normal()
         Z2 = np.random.normal()
         Z2 = self.rho * Z1 + np.sqrt(1 - self.rho**2) * Z2  # 确保 Z1 和 Z2 的相关性为 rho
 
-        # 使用 Euler 方法更新波动率和资产价格
         v_next = v + self.kappa * (self.theta - v) * dt + self.sigma * np.sqrt(v) * np.sqrt(dt) * Z2
-        # 确保波动率非负
+
         v_next = max(v_next, 0)
 
         S_next = S * np.exp((self.r - 0.5 * v) * dt + np.sqrt(v) * np.sqrt(dt) * Z1)
