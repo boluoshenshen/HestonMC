@@ -1,6 +1,5 @@
 import numpy as np
-from HestonModel import HestonModel
-
+from HestonMC.HestonModel import HestonModel
 class EulerScheme(HestonModel):
     def __init__(self, S0, v0, kappa, theta, sigma, rho, r):
         """

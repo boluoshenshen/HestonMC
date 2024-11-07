@@ -1,8 +1,7 @@
 import numpy as np
-from HestonModel import HestonModel
-from EulerScheme import EulerScheme
-from MonteCarloSimulator import MonteCarloSimulator
-from OptionPricer import OptionPricer
+from HestonMC.Schemes.EulerScheme import EulerScheme
+from HestonMC.MonteCarloSimulator import MonteCarloSimulator
+from HestonMC.OptionPricer import OptionPricer
 
 def main():
     S0 = 100         

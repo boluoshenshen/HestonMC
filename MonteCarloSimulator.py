@@ -1,5 +1,5 @@
 import numpy as np
-from HestonModel import HestonModel
+
 
 class MonteCarloSimulator:
     def __init__(self, model, scheme, num_paths, T, num_steps):

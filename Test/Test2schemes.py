@@ -1,22 +1,23 @@
 import numpy as np
-from HestonModel import HestonModel
-from EulerScheme import EulerScheme
-from MilsteinScheme import MilsteinScheme
-from MethodComparison import MethodComparison
+from HestonMC.HestonModel import HestonModel
+from HestonMC.Schemes.EulerScheme import EulerScheme
+from HestonMC.Schemes.MilsteinScheme import MilsteinScheme
+from HestonMC.MethodComparison import MethodComparison
+
+
 
 # Model parameters
-S0 = 100         # Initial asset price
-v0 = 0.04        # Initial volatility
-kappa = 1.5      # Speed of mean reversion
-theta = 0.04     # Long-term volatility level
-sigma = 0.3      # Volatility of volatility
-rho = -0.7       # Correlation between asset price and volatility
-r = 0.03         # Risk-free interest rate
-T = 1.0          # Time to maturity
-K = 100          # Strike price
+S0 = 100        
+v0 = 0.04       
+kappa = 1.5  
+theta = 0.04  
+sigma = 0.3  
+rho = -0.7  
+r = 0.03   
+T = 1.0   
+K = 100   
 true_price = 10  # Assumed true option price for comparison
 
-# Instantiate the Heston model
 heston_model = HestonModel(S0, v0, kappa, theta, sigma, rho, r)
 
 # Instantiate each scheme
