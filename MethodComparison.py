@@ -1,7 +1,7 @@
 import numpy as np
-from MonteCarloSimulator import MonteCarloSimulator
-from OptionPricer import OptionPricer
-from HestonModel import HestonModel
+from HestonMC.MonteCarloSimulator import MonteCarloSimulator
+from HestonMC.OptionPricer import OptionPricer
+
 
 class MethodComparison:
     def __init__(self, heston_model, T, K, true_price):

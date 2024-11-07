@@ -1,4 +1,3 @@
-from MonteCarloSimulator import MonteCarloSimulator
 import numpy as np
 class OptionPricer:
     def __init__(self, simulator):
