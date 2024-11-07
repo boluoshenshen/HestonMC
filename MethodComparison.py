@@ -6,11 +6,10 @@ from HestonModel import HestonModel
 class MethodComparison:
     def __init__(self, heston_model, T, K, true_price):
         """
-        初始化 MethodComparison
-        :param heston_model: HestonModel 实例
-        :param T: 到期时间
-        :param K: 期权执行价格
-        :param true_price: 期权的理论真实价格（如半解析解）
+        Initialize a MethodComparison instance.
+        :param heston_model: HestonModel instance
+        :param T: time to maturity
+        :param K: strike price
         """
         self.heston_model = heston_model
         self.T = T
@@ -19,11 +18,11 @@ class MethodComparison:
 
     def accuracy(self, scheme, num_paths, num_steps):
         """
-        计算不同方法的准确度
-        :param scheme: 离散化方案实例（如 EulerScheme 或 QEScheme）
-        :param num_paths: 模拟路径数
-        :param num_steps: 时间步长数
-        :return: 准确度（与真实值的偏差）
+        Calculate the accuracy of different methods.
+        :param scheme: discretization scheme instance
+        :param num_paths: number of paths
+        :param num_steps: number of time steps
+        :return: absolute difference between estimated price and true price
         """
         simulator = MonteCarloSimulator(self.heston_model, scheme, num_paths, self.T, num_steps)
         option_pricer = OptionPricer(simulator)
@@ -32,11 +31,11 @@ class MethodComparison:
 
     def convergence(self, scheme, num_paths, step_sizes):
         """
-        计算不同方法的收敛性
-        :param scheme: 离散化方案实例
-        :param num_paths: 模拟路径数
-        :param step_sizes: 一系列不同的时间步长
-        :return: 收敛误差列表
+        Calculate the convergence of different methods.
+        :param scheme: discretization scheme instance
+        :param num_paths: number of paths
+        :param step_sizes: list of time steps
+        :return: list of errors
         """
         errors = []
         for num_steps in step_sizes:
@@ -46,12 +45,12 @@ class MethodComparison:
 
     def stability(self, scheme, num_paths, num_steps, num_trials=10):
         """
-        计算不同方法的稳定性
-        :param scheme: 离散化方案实例
-        :param num_paths: 模拟路径数
-        :param num_steps: 时间步长数
-        :param num_trials: 试验次数
-        :return: 模拟结果的标准差（作为稳定性指标）
+        Calculate the stability of different methods.
+        :param scheme: discretization scheme instance
+        :param num_paths: number of paths
+        :param num_steps: number of time steps
+        :param num_trials: number of trials
+        return: standard deviation of option prices
         """
         prices = []
         for _ in range(num_trials):

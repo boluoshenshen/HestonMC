@@ -4,17 +4,17 @@ from HestonModel import HestonModel
 class EulerScheme(HestonModel):
     def __init__(self, S0, v0, kappa, theta, sigma, rho, r):
         """
-        初始化 Euler 离散化方案，并继承 HestonModel 参数
+        Initialize the EulerScheme instance. This class inherits from HestonModel.
         """
         super().__init__(S0, v0, kappa, theta, sigma, rho, r)
 
     def step(self, S, v, dt):
         """
-        使用 Euler 离散化方案进行单步更新
-        :param S: 当前资产价格
-        :param v: 当前波动率
-        :param dt: 时间步长
-        :return: 下一个时间步的资产价格 S 和波动率 v
+        Update the volatility and asset price using the Euler method.
+        param S: asset price
+        param v: volatility
+        param dt: time step
+        return: updated asset price and volatility
         """
         # 生成两个相关的正态随机变量
         Z1 = np.random.normal()
