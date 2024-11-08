@@ -1,8 +1,8 @@
 import numpy as np
-from HestonMC.HestonModel import HestonModel
-from HestonMC.Schemes.EulerScheme import EulerScheme
-from HestonMC.Schemes.MilsteinScheme import MilsteinScheme
-from HestonMC.MethodComparison import MethodComparison
+from HestonModel import HestonModel
+from EulerScheme import EulerScheme
+from MilsteinScheme import MilsteinScheme
+from MethodComparison import MethodComparison
 
 
 
@@ -35,16 +35,16 @@ step_sizes = [10, 50, 100]  # Different step sizes for convergence testing
 euler_accuracy = comparison.accuracy(euler_scheme, num_paths, num_steps=100)
 milstein_accuracy = comparison.accuracy(milstein_scheme, num_paths, num_steps=100)
 print("Euler Scheme Accuracy:", euler_accuracy)
-print("Milstein Scheme Accuracy:", milstein_accuracy)
+#print("Milstein Scheme Accuracy:", milstein_accuracy)
 
 # Convergence comparison
 euler_convergence = comparison.convergence(euler_scheme, num_paths, step_sizes)
 milstein_convergence = comparison.convergence(milstein_scheme, num_paths, step_sizes)
 print("Euler Scheme Convergence:", euler_convergence)
-print("Milstein Scheme Convergence:", milstein_convergence)
+#print("Milstein Scheme Convergence:", milstein_convergence)
 
 # Stability comparison
 euler_stability = comparison.stability(euler_scheme, num_paths, num_steps=100, num_trials=10)
 milstein_stability = comparison.stability(milstein_scheme, num_paths, num_steps=100, num_trials=10)
 print("Euler Scheme Stability:", euler_stability)
-print("Milstein Scheme Stability:", milstein_stability)
+#print("Milstein Scheme Stability:", milstein_stability)
