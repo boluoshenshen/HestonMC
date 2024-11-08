@@ -1,5 +1,5 @@
 import numpy as np
-from HestonMC.HestonModel import HestonModel
+from HestonModel import HestonModel
 
 class MilsteinScheme(HestonModel):
     def __init__(self, S0, v0, kappa, theta, sigma, rho, r):
