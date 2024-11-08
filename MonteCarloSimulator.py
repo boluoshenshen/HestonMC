@@ -4,12 +4,12 @@ from HestonModel import HestonModel
 class MonteCarloSimulator:
     def __init__(self, model, scheme, num_paths, T, num_steps):
         """
-        初始化 Monte Carlo 模拟器
-        :param model: HestonModel 实例
-        :param scheme: 离散化方案实例（如 EulerScheme 或 QEScheme）
-        :param num_paths: 模拟路径数
-        :param T: 到期时间
-        :param num_steps: 每条路径的时间步长数
+        Initialize the Monte Carlo simulator.
+        :param model: Instance of HestonModel
+        :param scheme: Discretization scheme instance (e.g., EulerScheme or QEScheme)
+        :param num_paths: Number of simulation paths
+        :param T: Time to maturity
+        :param num_steps: Number of time steps per path
         """
         self.model = model
         self.scheme = scheme
@@ -19,14 +19,14 @@ class MonteCarloSimulator:
 
     def generate_paths(self):
         """
-        生成模拟路径
-        :return: 资产价格路径和波动率路径矩阵（每一行表示一条路径）
+        Generate simulation paths.
+        :return: Matrices of asset price paths and volatility paths (each row is a path)
         """
         S_paths = np.zeros((self.num_paths, self.num_steps + 1))
         v_paths = np.zeros((self.num_paths, self.num_steps + 1))
 
         for i in range(self.num_paths):
-            S, v = self.model.S0, self.model.v0  # 每条路径的初始值
+            S, v = self.model.S0, self.model.v0  # Initial values for each path
             S_paths[i, 0], v_paths[i, 0] = S, v
 
             for j in range(1, self.num_steps + 1):
@@ -38,9 +38,9 @@ class MonteCarloSimulator:
 
     def price_option(self, payoff_func):
         """
-        使用 Monte Carlo 方法计算期权价格
-        :param payoff_func: 期权的收益函数（如欧式看涨或看跌）
-        :return: 期权价格
+        Calculate the option price using the Monte Carlo method.
+        :param payoff_func: Payoff function for the option (e.g., for European call or put)
+        :return: Option price
         """
         S_paths, _ = self.generate_paths()
         payoffs = np.maximum(payoff_func(S_paths[:, -1]), 0)

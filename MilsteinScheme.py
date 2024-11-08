@@ -4,32 +4,39 @@ from HestonModel import HestonModel
 class MilsteinScheme(HestonModel):
     def __init__(self, S0, v0, kappa, theta, sigma, rho, r):
         """
-        初始化 Milstein 离散化方案，并继承 HestonModel 参数
+        Initialize the Milstein discretization scheme and inherit HestonModel parameters.
+        :param S0: Initial asset price
+        :param v0: Initial volatility
+        :param kappa: Mean reversion rate
+        :param theta: Long-term mean
+        :param sigma: Volatility of volatility
+        :param rho: Correlation between asset price and volatility
+        :param r: Risk-free interest rate
         """
         super().__init__(S0, v0, kappa, theta, sigma, rho, r)
 
     def step(self, S, v, dt):
         """
-        使用 Milstein 离散化方案进行单步更新
-        :param S: 当前资产价格
-        :param v: 当前波动率
-        :param dt: 时间步长
-        :return: 下一个时间步的资产价格 S 和波动率 v
+        Perform a single-step update using the Milstein discretization scheme.
+        :param S: Current asset price
+        :param v: Current volatility
+        :param dt: Time step
+        :return: Asset price S and volatility v at the next time step
         """
-        # 生成两个相关的正态随机变量
+        # Generate two correlated normal random variables
         Z1 = np.random.normal()
         Z2 = np.random.normal()
-        Z2 = self.rho * Z1 + np.sqrt(1 - self.rho**2) * Z2  # 确保 Z1 和 Z2 的相关性为 rho
+        Z2 = self.rho * Z1 + np.sqrt(1 - self.rho**2) * Z2  # Ensure Z1 and Z2 have correlation rho
 
-        # 使用 Milstein 方法更新波动率和资产价格
-        # 更新波动率 v (确保非负)
+        # Update volatility v using the Milstein method
+        # Ensure volatility is non-negative
         v_sqrt = np.sqrt(v)
         v_next = v + self.kappa * (self.theta - v) * dt + self.sigma * v_sqrt * np.sqrt(dt) * Z2 \
-                 + 0.25 * self.sigma**2 * dt * (Z2**2 - 1)  # Milstein校正项
-        v_next = max(v_next, 0)  # 确保波动率非负
+                 + 0.25 * self.sigma**2 * dt * (Z2**2 - 1)  # Milstein correction term
+        v_next = max(v_next, 0)  # Ensure non-negative volatility
 
-        # 更新资产价格 S
+        # Update asset price S
         S_next = S * np.exp((self.r - 0.5 * v) * dt + v_sqrt * np.sqrt(dt) * Z1 \
-                            + 0.5 * v_sqrt * self.sigma * dt * (Z1**2 - 1))  # Milstein校正项
+                            + 0.5 * v_sqrt * self.sigma * dt * (Z1**2 - 1))  # Milstein correction term
 
         return S_next, v_next

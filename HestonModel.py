@@ -3,14 +3,14 @@ import numpy as np
 class HestonModel:
     def __init__(self, S0, v0, kappa, theta, sigma, rho, r):
         """
-        初始化 Heston 模型参数
-        :param S0: 初始资产价格
-        :param v0: 初始波动率
-        :param kappa: 均值回复速率
-        :param theta: 长期均值
-        :param sigma: 波动率的波动率
-        :param rho: 资产价格和波动率之间的相关性
-        :param r: 无风险利率
+        Initialize Heston model parameters.
+        :param S0: Initial asset price
+        :param v0: Initial volatility
+        :param kappa: Mean reversion rate
+        :param theta: Long-term mean
+        :param sigma: Volatility of volatility
+        :param rho: Correlation between asset price and volatility
+        :param r: Risk-free interest rate
         """
         self.S0 = S0
         self.v0 = v0
@@ -22,18 +22,18 @@ class HestonModel:
 
     def simulate_path(self, scheme, T, num_steps):
         """
-        使用给定的离散化方案生成路径
-        :param scheme: 离散化方案实例（如 EulerScheme, QEScheme）
-        :param T: 到期时间
-        :param num_steps: 时间步长数
-        :return: 资产价格和波动率路径
+        Generate a path using the given discretization scheme.
+        :param scheme: Discretization scheme instance (e.g., EulerScheme, QEScheme)
+        :param T: Time to maturity
+        :param num_steps: Number of time steps
+        :return: Asset price and volatility paths
         """
-        dt = T / num_steps  # 计算每个时间步长
-        S, v = self.S0, self.v0  # 初始价格和波动率
-        S_path, v_path = [S], [v]  # 存储价格和波动率路径
+        dt = T / num_steps  # Calculate each time step
+        S, v = self.S0, self.v0  # Initial price and volatility
+        S_path, v_path = [S], [v]  # Store price and volatility paths
 
         for _ in range(num_steps):
-            S, v = scheme.step(S, v, dt)  # 使用离散化方案更新 S 和 v
+            S, v = scheme.step(S, v, dt)  # Update S and v using the discretization scheme
             S_path.append(S)
             v_path.append(v)
 
